@@ -1,0 +1,50 @@
+---
+title: "task2"
+output: html_document
+---
+
+library(prob)
+
+
+##
+
+dice.roll <- sample(1:6, size = 3, replace = TRUE)
+
+sum(dice.roll)
+
+##
+
+S <-replicate(1000, sum(sample(1:6, size = 3, replace = TRUE)))
+
+sum(sample(1:6, size = 3, replace = TRUE))
+
+##Teorinis skirstinys
+
+St <- rolldie(3, nsides = 6, makespace = TRUE)
+
+St <- addrv(St, sum = X1 + X2 + X3)
+
+Steor <- marginal(St, vars="sum")
+
+##Tankis ir santykinis daznis
+
+plot(table(S)/1000, xlab="Sum", ylab="Prob")
+
+lines(Steor, col=2)
+
+##Vidurkis ir dispersija
+
+TVid <- sum(Steor$probs * Steor$sum)
+
+TDis <- sum((Steor$probs * (Steor$sum-TVid)) * (Steor$probs * (Steor$sum-TVid)))
+
+
+##Sources
+
+https://cran.r-project.org/web/packages/IPSUR/vignettes/IPSUR.pdf
+
+http://ditraglia.com/Econ103Public/Rtutorials/Rtutorial4.html
+
+https://cran.r-project.org/web/packages/prob/vignettes/prob.pdf
+
+

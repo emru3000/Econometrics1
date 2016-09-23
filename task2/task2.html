@@ -127,7 +127,8 @@ $(document).ready(function () {
 </div>
 <div id="section-1" class="section level2">
 <h2></h2>
-<p>S &lt;-replicate(1000, sum(sample(1:6, size = 3, replace = TRUE)))</p>
+<p>n = 10^5</p>
+<p>S &lt;-replicate(10^5, sum(sample(1:6, size = 3, replace = TRUE)))</p>
 <p>sum(sample(1:6, size = 3, replace = TRUE))</p>
 </div>
 <div id="teorinis-skirstinys" class="section level2">
@@ -136,9 +137,10 @@ $(document).ready(function () {
 <p>St &lt;- addrv(St, sum = X1 + X2 + X3)</p>
 <p>Steor &lt;- marginal(St, vars=“sum”)</p>
 </div>
-<div id="tankis-ir-santykinis-daznis" class="section level2">
-<h2>Tankis ir santykinis daznis</h2>
-<p>plot(table(S)/1000, xlab=“Sum”, ylab=“Prob”)</p>
+<div id="tankis-ir-santykinis-daznis-ir-palyginimas" class="section level2">
+<h2>Tankis ir santykinis daznis ir palyginimas</h2>
+<p>cbind(as.data.frame(table(S)/n), Steor)</p>
+<p>plot(table(S)/10^5, xlab=“Sum”, ylab=“Prob”)</p>
 <p>lines(Steor, col=2)</p>
 </div>
 <div id="vidurkis-ir-dispersija" class="section level2">
@@ -146,11 +148,23 @@ $(document).ready(function () {
 <p>TVid &lt;- sum(Steor<span class="math inline">\(probs * Steor\)</span>sum)</p>
 <p>TDis &lt;- sum((Steor<span class="math inline">\(probs * (Steor\)</span>sum-TVid)) * (Steor<span class="math inline">\(probs * (Steor\)</span>sum-TVid)))</p>
 </div>
+<div id="section-2" class="section level2">
+<h2></h2>
+<p>plot(cumsum(S)/1:n, type=“l”, xlab=“n”, ylab = “S / n”, main=“Vidurkio artejimas i teorini”)</p>
+<p>abline(h=TVid, col=2)</p>
+<p>a=S*0</p>
+<p>for(i in 1:10000){</p>
+<p>a[i]=var(S[1:i])</p>
+<p>}</p>
+<p>plot(a[1:10000], type=“l”, xlab=“n”, ylab=“varS”, main=“Dispersijos artejimas i teorine”)</p>
+<p>abline(h=TDis, col=2)</p>
+</div>
 <div id="sources" class="section level2">
 <h2>Sources</h2>
 <p><a href="https://cran.r-project.org/web/packages/IPSUR/vignettes/IPSUR.pdf" class="uri">https://cran.r-project.org/web/packages/IPSUR/vignettes/IPSUR.pdf</a></p>
 <p><a href="http://ditraglia.com/Econ103Public/Rtutorials/Rtutorial4.html" class="uri">http://ditraglia.com/Econ103Public/Rtutorials/Rtutorial4.html</a></p>
 <p><a href="https://cran.r-project.org/web/packages/prob/vignettes/prob.pdf" class="uri">https://cran.r-project.org/web/packages/prob/vignettes/prob.pdf</a></p>
+<p>Paskutineje uzduoties dalyje remiausi Simonos ikeltu darbu.</p>
 </div>
 
 

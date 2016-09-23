@@ -14,7 +14,9 @@ sum(dice.roll)
 
 ##
 
-S <-replicate(1000, sum(sample(1:6, size = 3, replace = TRUE)))
+n = 10^5
+
+S <-replicate(10^5, sum(sample(1:6, size = 3, replace = TRUE)))
 
 sum(sample(1:6, size = 3, replace = TRUE))
 
@@ -26,9 +28,11 @@ St <- addrv(St, sum = X1 + X2 + X3)
 
 Steor <- marginal(St, vars="sum")
 
-##Tankis ir santykinis daznis
+##Tankis ir santykinis daznis ir palyginimas
 
-plot(table(S)/1000, xlab="Sum", ylab="Prob")
+cbind(as.data.frame(table(S)/n), Steor)
+
+plot(table(S)/10^5, xlab="Sum", ylab="Prob")
 
 lines(Steor, col=2)
 
@@ -37,6 +41,24 @@ lines(Steor, col=2)
 TVid <- sum(Steor$probs * Steor$sum)
 
 TDis <- sum((Steor$probs * (Steor$sum-TVid)) * (Steor$probs * (Steor$sum-TVid)))
+
+##
+
+plot(cumsum(S)/1:n, type="l", xlab="n", ylab = "S / n", main="Vidurkio artejimas i teorini")
+
+abline(h=TVid, col=2)
+
+a=S*0
+
+for(i in 1:10000){
+
+  a[i]=var(S[1:i])
+  
+}
+
+plot(a[1:10000], type="l", xlab="n", ylab="varS", main="Dispersijos artejimas i teorine")
+
+abline(h=TDis, col=2)
 
 
 ##Sources
@@ -47,4 +69,4 @@ http://ditraglia.com/Econ103Public/Rtutorials/Rtutorial4.html
 
 https://cran.r-project.org/web/packages/prob/vignettes/prob.pdf
 
-
+Paskutineje uzduoties dalyje remiausi Simonos ikeltu darbu.

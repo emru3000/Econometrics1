@@ -3,47 +3,56 @@ title: "task2"
 output: html_document
 ---
 
+```{r, include=FALSE}
 library(prob)
-
+```
 
 ##
+```{r}
+library(prob)
 
 dice.roll <- sample(1:6, size = 3, replace = TRUE)
 
 sum(dice.roll)
 
+```
 ##
 
+```{r}
 n = 10^5
 
 S <-replicate(10^5, sum(sample(1:6, size = 3, replace = TRUE)))
 
 sum(sample(1:6, size = 3, replace = TRUE))
 
+```
 ##Teorinis skirstinys
-
+```{r}
 St <- rolldie(3, nsides = 6, makespace = TRUE)
 
 St <- addrv(St, sum = X1 + X2 + X3)
 
 Steor <- marginal(St, vars="sum")
-
+Steor
+```
 ##Tankis ir santykinis daznis ir palyginimas
-
+```{r}
 cbind(as.data.frame(table(S)/n), Steor)
 
 plot(table(S)/10^5, xlab="Sum", ylab="Prob")
 
 lines(Steor, col=2)
-
+```
 ##Vidurkis ir dispersija
-
+```{r}
 TVid <- sum(Steor$probs * Steor$sum)
+TVid
 
 TDis <- sum((Steor$probs * (Steor$sum-TVid)) * (Steor$probs * (Steor$sum-TVid)))
-
+TDis
+```
 ##
-
+```{r}
 plot(cumsum(S)/1:n, type="l", xlab="n", ylab = "S / n", main="Vidurkio artejimas i teorini")
 
 abline(h=TVid, col=2)
@@ -59,7 +68,7 @@ for(i in 1:10000){
 plot(a[1:10000], type="l", xlab="n", ylab="varS", main="Dispersijos artejimas i teorine")
 
 abline(h=TDis, col=2)
-
+```
 
 ##Sources
 

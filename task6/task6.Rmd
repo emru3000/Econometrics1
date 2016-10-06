@@ -1,0 +1,155 @@
+---
+title: "task6"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Nuskaitom faila
+```{r}
+my.data <- read.csv(file="https://raw.githubusercontent.com/1vbutkus/Econometrics1/master/task6/R_programing_swirlResults.csv")
+```
+
+#Patikrinam duomenu tipus
+```{r}
+for(i in 1:ncol(my.data)){
+class(my.data[ ,i])
+}
+sapply(my.data, class)
+```
+
+#Pakeiciam netinkamus duomenu tipus (siuo atveju datos)
+```{r}
+my.data <- transform(my.data, sysTime = as.POSIXlt(sysTime), datetime = as.POSIXlt(datetime))
+```
+
+#Isvalom nuo nereikalingu eiluciu (panaikinam vartotojus: "aaa", "1vbutkus", "testas")
+```{r}
+my.data <- my.data[18:7922,1:14]
+a=my.data[!(my.data$user=="1vbutkus" | my.data$user=="aaa" | my.data$user=="testas"),]
+```
+
+#Kadangi kai kurie atliko uzduotis skirtingais vardais, juos pervadinsim i viena varda
+```{r}
+my.data$user[my.data$user=="gyse"] <- "gyse3054"
+my.data$user[my.data$user=="rokasalek"] <- "rokasaleks"
+my.data$user[my.data$user=="Juste" | my.data$user=="ju" | my.data$user=="j"] <- "juste"
+```
+
+#Patikrinam ar duomenys dubliuojasi
+```{r}
+table(duplicated(my.data))
+```
+
+#Patikrinam kiek skipino
+```{r}
+table(a[a$skipped==TRUE,7])
+```
+
+#Panaikinam tuos, kurie skipino
+```{r}
+ner <- with(my.data, which(skipped =="TRUE"))
+beskipo <- my.data[ner,] 
+users <- unique(beskipo$user) 
+
+ner <- with(my.data, which(is.element(my.data$user, users) =="TRUE"))
+beskipo <- my.data[-ner,] 
+unique(beskipo$user) 
+```
+
+#Sudarome lentele is likusiu studentu
+```{r}
+c=a[(a$user=="aipe00" | a$user=="edba2903" | a$user=="emru3000" | a$user=="MildaPie" | a$user=="simona1234" | a$user=="zagnyte"),]
+```
+
+#Sudarome lentele vardu ir pamoku be besidubliuojanciu duomenu
+```{r}
+ d=data.frame(c$user, c$lesson_name)
+ d2=d[!duplicated(d), ]
+```
+
+#Tikrinam, ar visi like studentai padare visas pamokas
+```{r}
+    table(d2[,1])
+```
+
+Lieka tik geriausi, kurie atliko viska ir neskipino: aipe00, emru3000, simona1234, zagnyte
+
+#Sudarome lentele, kurioje yra studentai neatlike visu uzduociu
+```{r}
+skip=a[!(a$user=="aipe00" | a$user=="emru3000" | a$user=="simona1234" | a$user=="zagnyte"),]
+```
+
+#Kiek kurie studentai atsake klausimu
+```{r}
+skip1=data.frame(skip$user, skip$lesson_name)
+skip2=skip1[!duplicated(skip1), ]
+table(skip2[,1])
+```
+
+#Kiek kurie studentai praleido klausimu
+```{r}
+table(skip[skip$skipped==TRUE,7])
+```
+
+#Kiti idomus klausimai
+
+#Paliekam lentele triju stulpeliu: user, takeTime, lesson_name bei isimam besikartojancius duomenis
+```{r}
+time <- my.data[,c(3,6,7,9,13)]
+time2 <- my.data[,c(7,9)]
+dup <- which(duplicated(time2), TRUE)
+time <- time[-dup,]
+tikrasLaikas <- round(difftime(time$sysTime, time$datetime, units="mins"))
+time <- cbind(time, tikrasLaikas)
+```
+
+#Apskaiciuojam kiek vidutiniskai uztrunka atlikti uzduoti
+```{r}
+pamokos <- split(time, f=time$lesson_name)
+laikas <- sapply(pamokos, function(x) round(mean(x$tikrasLaikas), 2))
+sort(laikas)
+```
+
+#Panaikinam eilutes, kur studentu pazymetas laikas virsija valanda, kad gautume tikslesnius duomenis
+```{r}
+ner <- with(time, which(time$tikrasLaikas>60))
+time <- time[-ner, ]
+pamokos <- split(time, f=time$lesson_name)
+uztruko <- sapply(pamokos, function(x) round(mean(x$tikrasLaikas), 2))
+sort(uztruko)
+```
+
+#Apskaiciuokime skirtuma tarp pazymeto laiko ir tikslaus laiko
+```{r}
+skirtumas <- abs(time$takeTime - time$tikrasLaikas)
+mean(skirtumas)
+```
+Skirtumas ~7min
+
+#Sunkiausios uzduotys
+```{r}
+head(sort(laikas, decreasing=TRUE))
+```
+
+#Pagal praleistu klausimu bei klaidingu bandymu skaiciu
+```{r}
+ner <- with(my.data, which(skipped =="TRUE"))
+my.data2 <- my.data[ner,] 
+head(sort(table(my.data2$lesson_name), decreasing=TRUE))
+
+ner <- with(my.data, which(correct =="FALSE"))
+my.data2 <- my.data[ner,] 
+head(sort(table(my.data2$lesson_name), decreasing=TRUE))
+```
+"FUnctions", "Workspace and Files"
+
+#Reference
+https://www.datacamp.com/community/tutorials/15-easy-solutions-data-frame-problems-r#gs.rBFL8ok
+http://stackoverflow.com/questions/4862178/remove-rows-with-nas-missing-values-in-data-frame
+
+www.youtube.com
+
+Agnes ir Simonos pagalaba

@@ -2,8 +2,10 @@
 title: "task1"
 output: html_document
 ---
+#Naudingos ir dazniausiai naudojamos funkcijos ir kiti kodai:
 
-General
+#General
+
 builtins() # List all built-in functions
 
 options()  # Set options to control how R computes & displays results
@@ -93,7 +95,7 @@ file.info()    # Get information about files
 
 
 
-Graphical
+#Graphical
 
 
 help(package=graphics) # List all graphics functions
@@ -121,63 +123,21 @@ pairs()               # Plot matrix of scatter plots
 matplot()             # Plot columns of matrices
 
 
-?device               # Help page on available graphical devices
 
-postscript()          # Plot to postscript file
+#Examples:
 
-pdf()                 # Plot to pdf file
+```{r}
+x <- seq(-4, 4, length=100)
+hx <- dnorm(x)
+plot(x, hx, type="l", lty=2, xlab="x value", ylab="Density", main="Comparison of t Distributions")
 
-png()                 # Plot to PNG file
-
-jpeg()                # Plot to JPEG file
-
-X11()                 # Plot to X window
-
-persp()               # Draws perspective plot
-
-contour()             # Contour plot
-
-image()               # Plot an image
+mean(hx)
+runif(x)
+```
 
 
 
-
-
-Fitting / regression / optimisation
-
-lm		# Fit liner model
-
-glm		# Fit generalised linear model
-
-nls		# non-linear (weighted) least-squares fitting
-
-lqs		# "library(MASS)" resistant regression
-
-
-optim		# general-purpose optimisation
-
-optimize	# 1-dimensional optimisation
-
-constrOptim	# Constrained optimisation
-
-nlm		# Non-linear minimisation
-
-nlminb		# More robust (non-)constrained non-linear minimisation
-
-
-
-
-
-Statistical
-
-help(package=stats)   # List all stats functions
-
-
-?Chisquare            # Help on chi-squared distribution functions
-
-?Poisson              # Help on Poisson distribution functions
-
-help(package=survival) # Survival analysis
+#Statistical
 
 
 cor.test()            # Perform correlation test
@@ -216,4 +176,7 @@ qqplot()              # quantile-quantile plot
 
 
 
+
+
 http://www.sr.bham.ac.uk/~ajrs/R/r-function_list.html
+http://www.statmethods.net/advgraphs/probability.html

@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"task7\"\noutput: html_document\n---\n\nKauliukai. Du žaidėjai žaidžia tokį žaidimą. Pirmasis žaidėjas meta tris kauliukus ir fikuoja iškritusių taškų sumą. Antrasis žaidėjas ridena du kauliukus ir skiačiuoja iškrituių taškų sumą. Laimi tas žaidėjas, kurio taškų suma yra didesnė. Jeigu taškų sumos yra lygios, tai, tai ekspermentas kartojamas iš naujo (ir taip kartojama tol, kol galiausiai nustatomas laimėtojas). Kokia tikimybė laimėti pirmajam žaidėjui?\n\n\n```{r}\nn <- 1000\ni <- 1\npirmas <- c(rep(0, times=n))\nantras <- c(rep(0, times=n))\nlaim <- c(rep(0, times=n))\nwhile (i<n+1) {\n  pirmas[i] <- sum(sample(1:6, 3, replace=TRUE))\n  antras[i] <- sum(sample(1:6, 2, replace=TRUE))\n  if (pirmas[i]>antras[i]) {\n    laim[i] <- 1\n    i=i+1 }\n  else if(pirmas[i]<antras[i]){\n    laim[i] <- 0\n    i=i+1 }\n  else i=i }\nmean(laim)\n```\n\n\n\nMoneta. Tarkime metama moneta. Jeigu iškrenta herbas, tai laimite $12$ EUR. Jeigu skaičius, tai pralošiate $10$ EUR. Bus žaidžiama $100$ kartų ir gauti rezultatai sumuojami. Kokia tikimybė jums turėti teigiamą balansą po $100$ kartų? Koks balanso pasikliautinis $95%$ intervalas? Kaip atrodo balanso tankis?\n\n```{r}\nn <- 1000\nbalansas <- c(rep(0, times=n))\nteigiamasBal <- c(rep(0, times=n))\nfor (i in 1:n){\n  balansas[i] <- sum(sample(c(12, -10), 100, replace=TRUE))\n  if (balansas[i] > 0) teigiamasBal <- 1\n  else teigiamasBal[i] <- 0\n}\nmean(teigiamasBal)\n\nmean(balansas) - qt(0.975, df=n-1)*(sd(balansas)/sqrt(n))\nmean(balansas) + qt(0.975, df=n-1)*(sd(balansas)/sqrt(n))\n\nplot(density(balansas), main=\"Tankis\")\n```\n\n\n\nRulete. Nagrinėkime standartinę kazino ruletę. Kokia tikimybė, kad po $1000$ vienodų statymų ant vienos pasirinktos spalvos, bus teigiamas balansas? Raskite apytikslę $x$ reikšmę, kuriai galioja nelygybe $P(balansas<x) = 0.25$.\n\n```{r}\nn=1000\n\n```\n\n\n\nCRT. Generuojame $n$ atsitiktinių dydžių turinčių Beta skirstinį su parametrais $\\alpha=\\beta=0.5$ Iš šių atsitiktinių dydžių suskaičiuojamas aritmetinis vidurkis. Kaip atrodo aritmetinio vidurkio tankis, kai $n=100$?\n\n```{r}\n\n```\n\n\n\n\n",
+    "created" : 1475820443426.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "3711738457",
+    "id" : "8BD4FE54",
+    "lastKnownWriteTime" : 3419473789575321445,
+    "last_content_update" : 1475822888586,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

@@ -126,7 +126,7 @@ matplot()             # Plot columns of matrices
 
 #Examples:
 
-```{r}
+```{r pressure, echo=TRUE}
 x <- seq(-4, 4, length=100)
 hx <- dnorm(x)
 plot(x, hx, type="l", lty=2, xlab="x value", ylab="Density", main="Comparison of t Distributions")
@@ -134,7 +134,6 @@ plot(x, hx, type="l", lty=2, xlab="x value", ylab="Density", main="Comparison of
 mean(hx)
 runif(x)
 ```
-
 
 
 #Statistical

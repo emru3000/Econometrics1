@@ -1,0 +1,87 @@
+#A short list of the most useful R commands
+A summary of the most important commands with minimal examples.
+For all of these commands, using the help(function) or ? function is the most useful source of information. Unfortunately, knowing what to ask for help about is the hardest problem.
+
+##Distributions
+```{r, eval=FALSE, include=TRUE}
+beta(a, b)
+gamma(x)
+choose(n, k)
+factorial(x)
+
+dnorm(x, mean=0, sd=1, log = FALSE)      #normal distribution
+pnorm(q, mean=0, sd=1, lower.tail = TRUE, log.p = FALSE)
+qnorm(p, mean=0, sd=1, lower.tail = TRUE, log.p = FALSE)
+rnorm(n, mean=0, sd=1)
+
+
+dunif(x, min=0, max=1, log = FALSE)      #uniform distribution
+punif(q, min=0, max=1, lower.tail = TRUE, log.p = FALSE)
+qunif(p, min=0, max=1, lower.tail = TRUE, log.p = FALSE)
+runif(n, min=0, max=1)
+```
+
+##Data manipulation
+```{r , eval=FALSE, include=TRUE}
+replace(x, list, values)                 #remember to assign this to some object i.e., x <- replace(x,x==-9,NA) 
+                                         #similar to the operation x[x==-9] <- NA
+scrub(x, where, min, max, isvalue,newvalue)  #a convenient way to change particular values (in psych package)
+
+cut(x, breaks, labels = NULL,
+    include.lowest = FALSE, right = TRUE, dig.lab = 3, ...)
+
+x.df <- data.frame(x1,x2,x3 ...)          #combine different kinds of data into a data frame
+	    as.data.frame()
+	     is.data.frame()
+x <- as.matrix()
+scale()                                   #converts a data frame to standardized scores
+
+round(x,n)                                #rounds the values of x to n decimal places
+ceiling(x)                                #vector x of smallest integers > x
+floor(x)                                  #vector x of largest interger < x
+as.integer(x)                             #truncates real x to integers (compare to round(x,0)
+as.integer(x < cutpoint)                  #vector x of 0 if less than cutpoint, 1 if greater than cutpoint)
+factor(ifelse(a < cutpoint, "Neg", "Pos"))  #is another way to dichotomize and to make a factor for analysis 
+transform(data.df,variable names = some operation) #can be part of a set up for a data set 
+
+x%in%y                     #tests each element of x for membership in y
+y%in%x                     #tests each element of y for membership in x
+all(x%in%y)                #true if x is a proper subset of y
+all(x)                     # for a vector of logical values, are they all true?
+any(x)                     #for a vector of logical values, is at least one true?
+```
+
+##Useful additional commands
+```{r , eval=FALSE, include=TRUE}
+colSums (x, na.rm = FALSE, dims = 1)
+rowSums (x, na.rm = FALSE, dims = 1)
+colMeans(x, na.rm = FALSE, dims = 1)
+rowMeans(x, na.rm = FALSE, dims = 1)
+rowsum(x, group, reorder = TRUE, ...)         #finds row sums for each level of a grouping variable
+apply(X, MARGIN, FUN, ...)                    #applies the function (FUN) to either rows (1) or columns (2) on object X
+apply(x,1,min)                            #finds the minimum for each row
+apply(x,2,max)                            #finds the maximum for each column
+col.max(x)                                #another way to find which column has the maximum value for each row 
+which.min(x)
+which.max(x)
+z=apply(x,1,which.min)               #tells the row with the minimum value for every column
+```
+
+##More Distributions
+To generate random samples from a variety of distributions
+```{r , eval=FALSE, include=TRUE}
+rnorm(n,mean,sd)
+rbinom(n,size,p)
+sample(x, size, replace = FALSE, prob = NULL)      #samples with or without replacement
+```
+
+
+##Working with Dates
+```{r , eval=FALSE, include=TRUE}
+date <-strptime(as.character(date), "%m/%d/%y")   #change the date field to a internal form for time  
+                                                  #see ?formats and ?POSIXlt  
+ as.Date
+ month= months(date)                #see also weekdays, Julian
+```
+ 
+Reference: http://www.personality-project.org/r/r.commands.html

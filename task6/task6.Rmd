@@ -2,7 +2,8 @@
 title: "task6"
 output: html_document
 ---
-###Svarbiausi klausimai:
+##Uzduotis: sutvarkyti faila ir atsakyti i klausimus
+##Svarbiausi klausimai:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -95,7 +96,7 @@ table(skip2[,1])
 table(skip[skip$skipped==TRUE,7])
 ```
 ##
-###Kiti idomus klausimai:
+##Kiti idomus klausimai:
 ##
 ####Paliekam lentele triju stulpeliu: user, takeTime, lesson_name bei isimam besikartojancius duomenis
 ```{r}

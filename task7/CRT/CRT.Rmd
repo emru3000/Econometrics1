@@ -8,7 +8,7 @@ CRT. Generuojame $n$ atsitiktinių dydžių turinčių Beta skirstinį su parame
 ```{r }
 #naudojamas Monte Carlo modeliavimas
 vidurkis <- function(n) mean(rbeta(n, 0.5, 0.5))
-sim = replicate(10000, meanMC(100))
+sim = replicate(10000, vidurkis(100))
 plot(density(sim), main="Vidukrio skirstinys, kai n=100", xlab="x", ylab="Tankis")
 ```
 

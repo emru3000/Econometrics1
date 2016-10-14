@@ -2,30 +2,33 @@
 title: "task2"
 output: html_document
 ---
+#Random variable challenge
+
+Tarkime, kad ridenami trys taisyklingi standartiniai losimo kauliukai. Fiksuojama iskritusiu akuciu suma, pazymekime si atsitiktini dydi $S$.
+
+1.Atlikite Monte-Carlo modeliavima sugeneruodami $S$ atsitiktinio dydzio nepriklausomas realizacijas $S_1$, $S_2$, ..., $S_n$. Cia $n=10^5$.
+
+2.Raskite teorini $S$ skirstini, t.y. kiekvienai galimai $S$ reiksmei raskite pasirodymo tikimybe.
+
+3.Is sugeneruotos imties, padarykite santykiniu dazniu lentele ir gautas reiksmes palyginkite su teorinemis tikimybemis. Palyginimui pateikite grafika ir lentele, taip, kad butu patogu lyginti gautus rezultatus.
+
+4.Suskaiciuokite teorini $S$ vidurki ir dispersija. Padarykite grafikus, kuriuose matytusi, kaip didejant $n$ minetu charakteristiku ivertiniai arteja i teorines reiksmes.
 
 ```{r, include=FALSE}
 library(prob)
 ```
 
-##
+##Remiantis Monte Carlo modeliavimu
 ```{r}
 library(prob)
 
-dice.roll <- sample(1:6, size = 3, replace = TRUE)
-
-sum(dice.roll)
-
-```
-##
-
-```{r}
 n = 10^5
 
 S <-replicate(10^5, sum(sample(1:6, size = 3, replace = TRUE)))
 
 sum(sample(1:6, size = 3, replace = TRUE))
-
 ```
+
 ##Teorinis skirstinys
 ```{r}
 St <- rolldie(3, nsides = 6, makespace = TRUE)
@@ -35,7 +38,8 @@ St <- addrv(St, sum = X1 + X2 + X3)
 Steor <- marginal(St, vars="sum")
 Steor
 ```
-##Tankis ir santykinis daznis ir palyginimas
+
+##Tankis ir santykinis daznis ir ju palyginimas
 ```{r}
 cbind(as.data.frame(table(S)/n), Steor)
 
@@ -43,6 +47,7 @@ plot(table(S)/10^5, xlab="Sum", ylab="Prob")
 
 lines(Steor, col=2)
 ```
+
 ##Vidurkis ir dispersija
 ```{r}
 TVid <- sum(Steor$probs * Steor$sum)
@@ -52,6 +57,7 @@ TDis <- sum((Steor$probs * (Steor$sum-TVid)) * (Steor$probs * (Steor$sum-TVid)))
 TDis
 ```
 ##
+
 ```{r}
 plot(cumsum(S)/1:n, type="l", xlab="n", ylab = "S / n", main="Vidurkio artejimas i teorini")
 

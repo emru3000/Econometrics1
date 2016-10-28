@@ -3,7 +3,7 @@ title: "Rulete"
 output: html_document
 ---
 
-Rulete. Nagrinėkime standartinę kazino ruletę. Kokia tikimybė, kad po $1000$ vienodų statymų ant vienos pasirinktos spalvos, bus teigiamas balansas? Raskite apytikslę $x$ reikšmę, kuriai galioja nelygybe $P(balansas<x) = 0.25$.
+Rulete. Nagrinekime standartine kazino rulete. Kokia tikimybe, kad po $1000$ vienodu statymu ant vienos pasirinktos spalvos, bus teigiamas balansas? Raskite apytiksle $x$ reiksme, kuriai galioja nelygybe $P(balansas<x) = 0.25$.
 
 
 ```{r}
@@ -20,5 +20,9 @@ mean(teigiamas)
 X <- quantile(balansas, probs=0.25)
 X
 ```
+
+Source: 
+
+https://stat.ethz.ch/R-manual/R-devel/library/stats/html/quantile.html
 
 Kai kuriuose darbuose remiausiausi Simonos ir kitu kolegu pagalba.

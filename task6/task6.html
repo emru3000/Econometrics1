@@ -122,22 +122,16 @@ $(document).ready(function () {
 <div id="uzduotis-sutvarkyti-faila-ir-atsakyti-i-klausimus" class="section level2">
 <h2>Uzduotis: sutvarkyti faila ir atsakyti i klausimus</h2>
 </div>
-<div id="svarbiausi-klausimai" class="section level2">
-<h2>Svarbiausi klausimai:</h2>
-</div>
-<div id="section" class="section level2">
-<h2></h2>
+<div id="issami-failo-analize" class="section level2">
+<h2>Issami failo analize:</h2>
 <div id="nuskaitom-faila" class="section level4">
 <h4>Nuskaitom faila</h4>
 <pre class="r"><code>my.data &lt;- read.csv(file=&quot;https://raw.githubusercontent.com/1vbutkus/Econometrics1/master/task6/R_programing_swirlResults.csv&quot;)</code></pre>
 </div>
-</div>
-<div id="section-1" class="section level2">
-<h2></h2>
 <div id="patikrinam-duomenu-tipus" class="section level4">
 <h4>Patikrinam duomenu tipus</h4>
 <pre class="r"><code>for(i in 1:ncol(my.data)){
-class(my.data[ ,i])
+  class(my.data[ ,i])
 }
 sapply(my.data, class)</code></pre>
 <pre><code>##               X            name        takeTime         sysUser 
@@ -149,33 +143,21 @@ sapply(my.data, class)</code></pre>
 ##        datetime         skipped 
 ##        &quot;factor&quot;       &quot;logical&quot;</code></pre>
 </div>
-</div>
-<div id="section-2" class="section level2">
-<h2></h2>
 <div id="pakeiciam-netinkamus-duomenu-tipus-siuo-atveju-datos" class="section level4">
 <h4>Pakeiciam netinkamus duomenu tipus (siuo atveju datos)</h4>
 <pre class="r"><code>my.data &lt;- transform(my.data, sysTime = as.POSIXlt(sysTime), datetime = as.POSIXlt(datetime))</code></pre>
 </div>
-</div>
-<div id="section-3" class="section level2">
-<h2></h2>
 <div id="isvalom-nuo-nereikalingu-eiluciu-panaikinam-vartotojus-aaa-1vbutkus-testas" class="section level4">
 <h4>Isvalom nuo nereikalingu eiluciu (panaikinam vartotojus: “aaa”, “1vbutkus”, “testas”)</h4>
 <pre class="r"><code>my.data &lt;- my.data[18:7922,1:14]
 a=my.data[!(my.data$user==&quot;1vbutkus&quot; | my.data$user==&quot;aaa&quot; | my.data$user==&quot;testas&quot;),]</code></pre>
 </div>
-</div>
-<div id="section-4" class="section level2">
-<h2></h2>
 <div id="kadangi-kai-kurie-atliko-uzduotis-skirtingais-vardais-juos-pervadinsim-i-viena-varda" class="section level4">
 <h4>Kadangi kai kurie atliko uzduotis skirtingais vardais, juos pervadinsim i viena varda</h4>
 <pre class="r"><code>my.data$user[my.data$user==&quot;gyse&quot;] &lt;- &quot;gyse3054&quot;
 my.data$user[my.data$user==&quot;rokasalek&quot;] &lt;- &quot;rokasaleks&quot;
 my.data$user[my.data$user==&quot;Juste&quot; | my.data$user==&quot;ju&quot; | my.data$user==&quot;j&quot;] &lt;- &quot;juste&quot;</code></pre>
 </div>
-</div>
-<div id="section-5" class="section level2">
-<h2></h2>
 <div id="patikrinam-ar-duomenys-dubliuojasi" class="section level4">
 <h4>Patikrinam ar duomenys dubliuojasi</h4>
 <pre class="r"><code>table(duplicated(my.data))</code></pre>
@@ -183,9 +165,6 @@ my.data$user[my.data$user==&quot;Juste&quot; | my.data$user==&quot;ju&quot; | my
 ## FALSE 
 ##  7905</code></pre>
 </div>
-</div>
-<div id="section-6" class="section level2">
-<h2></h2>
 <div id="patikrinam-kiek-skipino" class="section level4">
 <h4>Patikrinam kiek skipino</h4>
 <pre class="r"><code>table(a[a$skipped==TRUE,7])</code></pre>
@@ -207,9 +186,6 @@ my.data$user[my.data$user==&quot;Juste&quot; | my.data$user==&quot;ju&quot; | my
 ##       sindeivydas            testas           zagnyte 
 ##                18                 0                 0</code></pre>
 </div>
-</div>
-<div id="section-7" class="section level2">
-<h2></h2>
 <div id="panaikinam-tuos-kurie-skipino" class="section level4">
 <h4>Panaikinam tuos, kurie skipino</h4>
 <pre class="r"><code>ner &lt;- with(my.data, which(skipped ==&quot;TRUE&quot;))
@@ -223,27 +199,18 @@ unique(beskipo$user) </code></pre>
 ## [7] edba2903   Danielius 
 ## 31 Levels: 1vbutkus aaa aipe00 Danielius Dariukxas ... zagnyte</code></pre>
 </div>
-</div>
-<div id="section-8" class="section level2">
-<h2></h2>
 <div id="sudarome-lentele-is-likusiu-studentu" class="section level4">
 <h4>Sudarome lentele is likusiu studentu</h4>
 <pre class="r"><code>c=a[(a$user==&quot;aipe00&quot; | a$user==&quot;edba2903&quot; | a$user==&quot;emru3000&quot; | a$user==&quot;MildaPie&quot; | a$user==&quot;simona1234&quot; | a$user==&quot;zagnyte&quot;),]</code></pre>
 </div>
-</div>
-<div id="section-9" class="section level2">
-<h2></h2>
 <div id="sudarome-lentele-vardu-ir-pamoku-be-besidubliuojanciu-duomenu" class="section level4">
 <h4>Sudarome lentele vardu ir pamoku be besidubliuojanciu duomenu</h4>
 <pre class="r"><code> d=data.frame(c$user, c$lesson_name)
  d2=d[!duplicated(d), ]</code></pre>
 </div>
-</div>
-<div id="section-10" class="section level2">
-<h2></h2>
 <div id="tikrinam-ar-visi-like-studentai-padare-visas-pamokas" class="section level4">
 <h4>Tikrinam, ar visi like studentai padare visas pamokas</h4>
-<pre class="r"><code>    table(d2[,1])</code></pre>
+<pre class="r"><code> table(d2[,1])</code></pre>
 <pre><code>## 
 ##          1vbutkus               aaa            aipe00         Danielius 
 ##                 0                 0                16                 0 
@@ -261,15 +228,12 @@ unique(beskipo$user) </code></pre>
 ##                 0                 0                16                 0 
 ##       sindeivydas            testas           zagnyte 
 ##                 0                 0                16</code></pre>
+<p>Lieka tik geriausi, kurie atliko viska ir neskipino: aipe00, emru3000, simona1234, zagnyte</p>
 </div>
-</div>
-<div id="section-11" class="section level2">
-<h2></h2>
-<p>Lieka tik geriausi, kurie atliko viska ir neskipino: aipe00, emru3000, simona1234, zagnyte ## ####Sudarome lentele, kurioje yra studentai neatlike visu uzduociu</p>
+<div id="sudarome-lentele-kurioje-yra-studentai-neatlike-visu-uzduociu" class="section level4">
+<h4>Sudarome lentele, kurioje yra studentai neatlike visu uzduociu</h4>
 <pre class="r"><code>skip=a[!(a$user==&quot;aipe00&quot; | a$user==&quot;emru3000&quot; | a$user==&quot;simona1234&quot; | a$user==&quot;zagnyte&quot;),]</code></pre>
 </div>
-<div id="section-12" class="section level2">
-<h2></h2>
 <div id="kiek-kurie-studentai-atsake-klausimu" class="section level4">
 <h4>Kiek kurie studentai atsake klausimu</h4>
 <pre class="r"><code>skip1=data.frame(skip$user, skip$lesson_name)
@@ -293,9 +257,6 @@ table(skip2[,1])</code></pre>
 ##       sindeivydas            testas           zagnyte 
 ##                16                 0                 0</code></pre>
 </div>
-</div>
-<div id="section-13" class="section level2">
-<h2></h2>
 <div id="kiek-kurie-studentai-praleido-klausimu" class="section level4">
 <h4>Kiek kurie studentai praleido klausimu</h4>
 <pre class="r"><code>table(skip[skip$skipped==TRUE,7])</code></pre>
@@ -318,14 +279,8 @@ table(skip2[,1])</code></pre>
 ##                18                 0                 0</code></pre>
 </div>
 </div>
-<div id="section-14" class="section level2">
-<h2></h2>
-</div>
 <div id="kiti-idomus-klausimai" class="section level2">
 <h2>Kiti idomus klausimai:</h2>
-</div>
-<div id="section-15" class="section level2">
-<h2></h2>
 <div id="paliekam-lentele-triju-stulpeliu-user-taketime-lesson_name-bei-isimam-besikartojancius-duomenis" class="section level4">
 <h4>Paliekam lentele triju stulpeliu: user, takeTime, lesson_name bei isimam besikartojancius duomenis</h4>
 <pre class="r"><code>time &lt;- my.data[,c(3,6,7,9,13)]
@@ -335,9 +290,6 @@ time &lt;- time[-dup,]
 tikrasLaikas &lt;- round(difftime(time$sysTime, time$datetime, units=&quot;mins&quot;))
 time &lt;- cbind(time, tikrasLaikas)</code></pre>
 </div>
-</div>
-<div id="section-16" class="section level2">
-<h2></h2>
 <div id="apskaiciuojam-kiek-vidutiniskai-uztrunka-atlikti-uzduoti" class="section level4">
 <h4>Apskaiciuojam kiek vidutiniskai uztrunka atlikti uzduoti</h4>
 <pre class="r"><code>pamokos &lt;- split(time, f=time$lesson_name)
@@ -356,9 +308,6 @@ sort(laikas)</code></pre>
 ##    Basic Building Blocks 
 ##                   470.90</code></pre>
 </div>
-</div>
-<div id="section-17" class="section level2">
-<h2></h2>
 <div id="panaikinam-eilutes-kur-studentu-pazymetas-laikas-virsija-valanda-kad-gautume-tikslesnius-duomenis" class="section level4">
 <h4>Panaikinam eilutes, kur studentu pazymetas laikas virsija valanda, kad gautume tikslesnius duomenis</h4>
 <pre class="r"><code>ner &lt;- with(time, which(time$tikrasLaikas&gt;60))
@@ -379,27 +328,21 @@ sort(uztruko)</code></pre>
 ##                Functions 
 ##                    28.17</code></pre>
 </div>
-</div>
-<div id="section-18" class="section level2">
-<h2></h2>
 <div id="apskaiciuokime-skirtuma-tarp-pazymeto-laiko-ir-tikslaus-laiko" class="section level4">
 <h4>Apskaiciuokime skirtuma tarp pazymeto laiko ir tikslaus laiko</h4>
 <pre class="r"><code>skirtumas &lt;- abs(time$takeTime - time$tikrasLaikas)
 mean(skirtumas)</code></pre>
 <pre><code>## Time difference of 7.077441 mins</code></pre>
+<p>Atsakymas: Skirtumas ~7min</p>
 </div>
-</div>
-<div id="section-19" class="section level2">
-<h2></h2>
-<p>Atsakymas: Skirtumas ~7min ## ####Sunkiausios uzduotys</p>
+<div id="sunkiausios-uzduotys" class="section level4">
+<h4>Sunkiausios uzduotys</h4>
 <pre class="r"><code>head(sort(laikas, decreasing=TRUE))</code></pre>
 <pre><code>##    Basic Building Blocks      Workspace and Files                Functions 
 ##                   470.90                   218.47                   207.88 
 ##        lapply and sapply Matrices and Data Frames                    Logic 
 ##                   104.05                    28.29                    24.76</code></pre>
 </div>
-<div id="section-20" class="section level2">
-<h2></h2>
 <div id="pagal-praleistu-klausimu-bei-klaidingu-bandymu-skaiciu" class="section level4">
 <h4>Pagal praleistu klausimu bei klaidingu bandymu skaiciu</h4>
 <pre class="r"><code>ner &lt;- with(my.data, which(skipped ==&quot;TRUE&quot;))
@@ -418,14 +361,15 @@ head(sort(table(my.data2$lesson_name), decreasing=TRUE))</code></pre>
 ##                      253                      176                      142 
 ## Matrices and Data Frames      Workspace and Files                  Vectors 
 ##                      129                      106                       98</code></pre>
+<p>Sunkiausios uzduotys: “FUnctions”, “Workspace and Files”</p>
 </div>
-</div>
-<div id="section-21" class="section level2">
-<h2></h2>
-<p>Atsakymas: “FUnctions”, “Workspace and Files” ## ###Reference <a href="https://www.datacamp.com/community/tutorials/15-easy-solutions-data-frame-problems-r#gs.rBFL8ok" class="uri">https://www.datacamp.com/community/tutorials/15-easy-solutions-data-frame-problems-r#gs.rBFL8ok</a></p>
+<div id="reference" class="section level3">
+<h3>Reference</h3>
+<p><a href="https://www.datacamp.com/community/tutorials/15-easy-solutions-data-frame-problems-r#gs.rBFL8ok" class="uri">https://www.datacamp.com/community/tutorials/15-easy-solutions-data-frame-problems-r#gs.rBFL8ok</a></p>
 <p><a href="http://stackoverflow.com/questions/4862178/remove-rows-with-nas-missing-values-in-data-frame" class="uri">http://stackoverflow.com/questions/4862178/remove-rows-with-nas-missing-values-in-data-frame</a></p>
 <p>www.youtube.com</p>
 <p>Agnes ir Simonos pagalaba</p>
+</div>
 </div>
 
 

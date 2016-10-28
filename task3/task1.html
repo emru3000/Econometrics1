@@ -118,11 +118,11 @@ $(document).ready(function () {
 </div>
 
 
-<div id="a-short-list-of-the-most-useful-r-commands" class="section level1">
-<h1>A short list of the most useful R commands</h1>
+<div id="a-short-list-of-the-most-useful-r-commands" class="section level2">
+<h2>A short list of the most useful R commands</h2>
 <p>A summary of the most important commands with minimal examples. For all of these commands, using the help(function) or ? function is the most useful source of information. Unfortunately, knowing what to ask for help about is the hardest problem.</p>
-<div id="distributions" class="section level2">
-<h2>Distributions</h2>
+<div id="distributions" class="section level3">
+<h3>Distributions</h3>
 <pre class="r"><code>beta(a, b)
 gamma(x)
 choose(n, k)
@@ -139,8 +139,8 @@ punif(q, min=0, max=1, lower.tail = TRUE, log.p = FALSE)
 qunif(p, min=0, max=1, lower.tail = TRUE, log.p = FALSE)
 runif(n, min=0, max=1)</code></pre>
 </div>
-<div id="data-manipulation" class="section level2">
-<h2>Data manipulation</h2>
+<div id="data-manipulation" class="section level3">
+<h3>Data manipulation</h3>
 <pre class="r"><code>replace(x, list, values)                 #remember to assign this to some object i.e., x &lt;- replace(x,x==-9,NA) 
                                          #similar to the operation x[x==-9] &lt;- NA
 scrub(x, where, min, max, isvalue,newvalue)  #a convenient way to change particular values (in psych package)
@@ -168,8 +168,8 @@ all(x%in%y)                #true if x is a proper subset of y
 all(x)                     # for a vector of logical values, are they all true?
 any(x)                     #for a vector of logical values, is at least one true?</code></pre>
 </div>
-<div id="useful-additional-commands" class="section level2">
-<h2>Useful additional commands</h2>
+<div id="useful-additional-commands" class="section level3">
+<h3>Useful additional commands</h3>
 <pre class="r"><code>colSums (x, na.rm = FALSE, dims = 1)
 rowSums (x, na.rm = FALSE, dims = 1)
 colMeans(x, na.rm = FALSE, dims = 1)
@@ -183,19 +183,28 @@ which.min(x)
 which.max(x)
 z=apply(x,1,which.min)               #tells the row with the minimum value for every column</code></pre>
 </div>
+</div>
 <div id="more-distributions" class="section level2">
 <h2>More Distributions</h2>
-<p>To generate random samples from a variety of distributions</p>
+<div id="to-generate-random-samples-from-a-variety-of-distributions" class="section level3">
+<h3>To generate random samples from a variety of distributions</h3>
 <pre class="r"><code>rnorm(n,mean,sd)
 rbinom(n,size,p)
 sample(x, size, replace = FALSE, prob = NULL)      #samples with or without replacement</code></pre>
 </div>
-<div id="working-with-dates" class="section level2">
-<h2>Working with Dates</h2>
+<div id="working-with-dates" class="section level3">
+<h3>Working with Dates</h3>
 <pre class="r"><code>date &lt;-strptime(as.character(date), &quot;%m/%d/%y&quot;)   #change the date field to a internal form for time  
                                                   #see ?formats and ?POSIXlt  
  as.Date
  month= months(date)                #see also weekdays, Julian</code></pre>
+</div>
+<div id="simple-example-with-rnorm" class="section level3">
+<h3>Simple example with “rnorm”</h3>
+<pre class="r"><code>rnorm(1000, 3, .25)
+#Generates 1000 numbers
+#from a normal with mean 3
+#and sd=.25</code></pre>
 <p>Reference: <a href="http://www.personality-project.org/r/r.commands.html" class="uri">http://www.personality-project.org/r/r.commands.html</a></p>
 </div>
 </div>

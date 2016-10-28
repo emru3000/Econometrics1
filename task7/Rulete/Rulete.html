@@ -119,7 +119,7 @@ $(document).ready(function () {
 </div>
 
 
-<p>Rulete. NagrinÄkime standartinÄ kazino ruletÄ. Kokia tikimybÄ, kad po <span class="math inline">\(1000\)</span> vienodÅ³ statymÅ³ ant vienos pasirinktos spalvos, bus teigiamas balansas? Raskite apytikslÄ <span class="math inline">\(x\)</span> reikÅ¡mÄ, kuriai galioja nelygybe <span class="math inline">\(P(balansas&lt;x) = 0.25\)</span>.</p>
+<p>Rulete. Nagrinekime standartine kazino rulete. Kokia tikimybe, kad po <span class="math inline">\(1000\)</span> vienodu statymu ant vienos pasirinktos spalvos, bus teigiamas balansas? Raskite apytiksle <span class="math inline">\(x\)</span> reiksme, kuriai galioja nelygybe <span class="math inline">\(P(balansas&lt;x) = 0.25\)</span>.</p>
 <pre class="r"><code>n &lt;- 100000
 balansas &lt;- c(rep(0, times=n))
 teigiamas &lt;- c(rep(0, times=n))
@@ -130,7 +130,7 @@ for (i in 1:n) {
   else {
     teigiamas[i] &lt;- 0}}
 mean(teigiamas)</code></pre>
-<pre><code>## [1] 0.18988</code></pre>
+<pre><code>## [1] 0.18426</code></pre>
 <pre class="r"><code>X &lt;- quantile(balansas, probs=0.25)
 X</code></pre>
 <pre><code>## 25% 

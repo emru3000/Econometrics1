@@ -119,9 +119,10 @@ $(document).ready(function () {
 </div>
 
 
-<p>Kauliukai. Du Å¾aidÄjai Å¾aidÅ¾ia tokÄ¯ Å¾aidimÄ. Pirmasis Å¾aidÄjas meta tris kauliukus ir fikuoja iÅ¡kritusiÅ³ taÅ¡kÅ³ sumÄ. Antrasis Å¾aidÄjas ridena du kauliukus ir skiaÄiuoja iÅ¡krituiÅ³ taÅ¡kÅ³ sumÄ. Laimi tas Å¾aidÄjas, kurio taÅ¡kÅ³ suma yra didesnÄ. Jeigu taÅ¡kÅ³ sumos yra lygios, tai, tai ekspermentas kartojamas iÅ¡ naujo (ir taip kartojama tol, kol galiausiai nustatomas laimÄtojas). Kokia tikimybÄ laimÄti pirmajam Å¾aidÄjui?</p>
+<p>Kauliukai.Du zaidejai zaidzia toki zaidima. Pirmasis zaidejas meta tris kauliukus ir fikuoja iskritusiu tasku suma. Antrasis zaidejas ridena du kauliukus ir skiaciuoja iskrituiu tasku suma. Laimi tas zaidejas, kurio tasku suma yra didesne. Jeigu tasku sumos yra lygios, tai, tai ekspermentas kartojamas is naujo (ir taip kartojama tol, kol galiausiai nustatomas laimetojas). Kokia tikimybe laimeti pirmajam zaidejui?</p>
 <pre class="r"><code>n &lt;- 1000
 i &lt;- 1
+
 pirmas &lt;- c(rep(0, times=n))
 antras &lt;- c(rep(0, times=n))
 laim &lt;- c(rep(0, times=n))
@@ -130,13 +131,19 @@ while (i&lt;n+1){
   antras[i]&lt;-sum(sample(1:6, 2, replace=TRUE))
   if (pirmas[i]&gt;antras[i]){
     laim[i]&lt;-1
-    i=i+1}
+    i=i+1
+    }
   else if(pirmas[i]&lt;antras[i]){
     laim[i]&lt;-0
-    i=i+1}
-  else i=i}
+    i=i+1
+    }
+  else i=i
+  }
 mean(laim)</code></pre>
-<pre><code>## [1] 0.854</code></pre>
+<pre><code>## [1] 0.834</code></pre>
+<p>Source:</p>
+<p><a href="http://rpubs.com/Lionel/11497" class="uri">http://rpubs.com/Lionel/11497</a></p>
+<p><a href="https://cran.r-project.org/web/packages/dice/dice.pdf" class="uri">https://cran.r-project.org/web/packages/dice/dice.pdf</a></p>
 
 
 

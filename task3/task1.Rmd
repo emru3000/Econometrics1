@@ -1,8 +1,8 @@
-#A short list of the most useful R commands
+##A short list of the most useful R commands
 A summary of the most important commands with minimal examples.
 For all of these commands, using the help(function) or ? function is the most useful source of information. Unfortunately, knowing what to ask for help about is the hardest problem.
 
-##Distributions
+###Distributions
 ```{r, eval=FALSE, include=TRUE}
 beta(a, b)
 gamma(x)
@@ -21,7 +21,7 @@ qunif(p, min=0, max=1, lower.tail = TRUE, log.p = FALSE)
 runif(n, min=0, max=1)
 ```
 
-##Data manipulation
+###Data manipulation
 ```{r , eval=FALSE, include=TRUE}
 replace(x, list, values)                 #remember to assign this to some object i.e., x <- replace(x,x==-9,NA) 
                                          #similar to the operation x[x==-9] <- NA
@@ -51,7 +51,7 @@ all(x)                     # for a vector of logical values, are they all true?
 any(x)                     #for a vector of logical values, is at least one true?
 ```
 
-##Useful additional commands
+###Useful additional commands
 ```{r , eval=FALSE, include=TRUE}
 colSums (x, na.rm = FALSE, dims = 1)
 rowSums (x, na.rm = FALSE, dims = 1)
@@ -68,7 +68,7 @@ z=apply(x,1,which.min)               #tells the row with the minimum value for e
 ```
 
 ##More Distributions
-To generate random samples from a variety of distributions
+###To generate random samples from a variety of distributions
 ```{r , eval=FALSE, include=TRUE}
 rnorm(n,mean,sd)
 rbinom(n,size,p)
@@ -76,12 +76,21 @@ sample(x, size, replace = FALSE, prob = NULL)      #samples with or without repl
 ```
 
 
-##Working with Dates
+###Working with Dates
 ```{r , eval=FALSE, include=TRUE}
 date <-strptime(as.character(date), "%m/%d/%y")   #change the date field to a internal form for time  
                                                   #see ?formats and ?POSIXlt  
  as.Date
  month= months(date)                #see also weekdays, Julian
+```
+
+
+###Simple example with "rnorm" 
+```{r, eval=FALSE, include=TRUE}
+rnorm(1000, 3, .25)
+#Generates 1000 numbers
+#from a normal with mean 3
+#and sd=.25
 ```
  
 Reference: http://www.personality-project.org/r/r.commands.html

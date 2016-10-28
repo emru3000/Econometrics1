@@ -3,13 +3,13 @@ title: "CRT"
 output: html_document
 ---
 
-CRT. Generuojame $n$ atsitiktinių dydžių turinčių Beta skirstinį su parametrais $\alpha=\beta=0.5$ Iš šių atsitiktinių dydžių suskaičiuojamas aritmetinis vidurkis. Kaip atrodo aritmetinio vidurkio tankis, kai $n=100$?
+CRT. Generuojame $n$ atsitiktiniu dydziu turinciu Beta skirstini su parametrais $\alpha=\beta=0.5$ Is siu atsitiktiniu dydziu suskaiciuojamas aritmetinis vidurkis. Kaip atrodo aritmetinio vidurkio tankis, kai $n=100$?
 
 ```{r }
 #naudojamas Monte Carlo modeliavimas
 vidurkis <- function(n) mean(rbeta(n, 0.5, 0.5))
 sim = replicate(10000, vidurkis(100))
-plot(density(sim), main="Vidukrio skirstinys, kai n=100", xlab="x", ylab="Tankis")
+plot(density(sim), main="Vidukrio skirstinys, n=100", xlab="x", ylab="Tankis")
 ```
 
 Task7 sources:

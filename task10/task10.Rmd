@@ -1,0 +1,70 @@
+---
+title: "task10"
+output: html_document
+---
+
+Uzduotis skirta ismokti tikrinti paprasta statistine hipoteze ir suprasti jos rezultatus.
+
+a) Tegul $x_1, ..., X_{100} \sim N(1, 2)$. Susigeneruokite tokia imti ir patikrinkite nuline hipoteze, kad $H_0: \mu=1$, su alternatyva, kad $\mu\neq 1$. Tam rekalinga funkcija t.test. Detaliai paaiskinkite ka reiskia funkcijos isvestyje pateikti skaiciai.
+
+b) Kartokite a) dalies generavima daug kartu (pvz.10^4) ir suskaiciuokite kiek atveju buvo atmesta nuline hipoteze? Isreiskite si skaiciu procentais. Kokia isvada galite padaryti?
+
+Sprendimas:
+
+a)
+```{r, eval=FALSE, include=TRUE}
+t.test.twoTails <- function(a, mu1, alpha)
+{
+  t.stat <- abs((mean(a) - mu1)) / (sqrt(var(a) / length(a)))
+  dof <- length(a) - 1
+  t.critical <- qt(1-alpha/2, df= dof) #Es alpha 0.05 -> -1.9599 (df=Inf)
+  p.value <- 2*(1-pt(t.stat, df= dof))
+  
+  if(t.stat >= t.critical)
+  {
+    print("Atmesti H0")
+  }
+  else
+  {
+    print("Priimti H0")
+  }
+  print('T statitika')
+  print(t.stat)
+  print('T kritine reiksme')
+  print(c(-t.critical,t.critical))
+  print('P reiksme')
+  print(p.value)
+  print("#####################")
+  
+  return(t.stat)
+}
+
+t.test.twoTails(dataa, 73, 0.05)
+```
+
+a) 2 var.
+```{r}
+var1 <- rnorm(100,mean=1, sd=sqrt(2))
+t.test(var1, mu=1)
+
+```
+P-reiksme - p-value reiskia tikimybe, ar bus atmesta nuline hipoteze. Siuo atveju reiksmingumo lygmuo yra 0,05. Nuline hipoteze atmetame, jei p-reiksme < 0,05. Siame teste nuline hipoteze miu=1 neatmetama.
+
+Pagal 95% pasikliautina intervala, i ji patenka reiksme miu=1, tai tuomet nuline hipoteze neatmetama.
+
+b)
+```{r}
+funkcija <- function() {
+  var1 <- rnorm(100, mean=1, sd=sqrt(2))
+  ttest <- t.test(var1, mu=1)
+  return(ttest$p.value < 0.05)
+}
+
+var2 <- replicate(10^4, funkcija())
+mean(var2)
+```
+5% buvo atmesta nuline hipoteze. Kadangi hipoteze tikrinom su reiksmingumo lygmeniu 0.05, tai tikimybe atmesti teisinga nuline hipoteze yra 0.05.
+
+source: 
+
+https://www.r-bloggers.com/hypothesis-testing-on-normally-distributed-data-in-r/

@@ -1,20 +1,62 @@
 ---
 title: "task11"
+author: "Emilija Rudyte"
 output: html_document
+date: "2016-11-06"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-Pakete datasets yra duomenų masyvas longley. Iš šio kintamųjų padarykite tiesinę regresiją, kur prognozuojamas kintamasis būtų GNP, o regresosius Employed. Jums reikia:
+*Pakete datasets yra duomenu masyvas longley. Is sio kintamuju padarykite tiesine regresija, kur prognozuojamas kintamasis butu GNP, o regresosius Employed. Jums reikia:*
 
-Įvertinti paprastosios tiesinės regresijos modelį. Pateikti modelio summary ir pakomentuoti ką reiškia gauti skaičiai. Kaip interpretuoti gautus rezultatus?
+*1.Ivertinti paprastosios tiesines regresijos modeli. Pateikti modelio summary ir pakomentuoti ka reiskia gauti skaiciai. Kaip interpretuoti gautus rezultatus?*
+```{r}
+library('datasets')
+data.frame(longley$GNP, longley$Employed)    #sukuriam lentele tik is GNP ir Employed visu reiksmiu
+x <- longley$Employed
+y <- longley$GNP
 
-Padarykite modelio prognozes taškuose $62, 65, 68$.
+model <- lm(y~x)                             #sukuriam tiesines regresijos modeli su finkcija lm is kintamojo GNP ir regresoriaus Employed
+summary(model)                               #pateikiama modelio summary
+```
+Isvesties paaiskinimas:
 
-Išbrėžkite kintamųjų sklaidos diagramą kartu su tiesinės regresijos tiese ir naujomis prognozėmis. Grafiką pateikite su pilna legena, kurioje būtų nurodyti visi žymėjimai.
+**Call**: Kaip matote, pirmasis elementas isvestyje yra formule, kuria R panaudojo su pateiktais duomenimis.
+
+**Residuals**: is esmes rodo skirtuma, kiek prognozuojami duomenys gali skirtis nuo stebimu.
+
+**Coefficients**: si isvesties dalis yra apie koeficientus. Teoriskai, paprastoje tiesineje regresijoje, koeficientai yra dvi nezinomos konstantos pateikiancios intercept (-1430.482) ir slope (27.836) terminus tiesineje regresijoje.
+
+**Standard Error**: (standartinis nuokrypis)apskaiciuoja vidutini dydi, kad koeficiento vertinimai varijuoja nuo esamos kintamojo vidurkio reiksmes.
+
+**t value**: Stjudento kriterijaus statistikos t-reiksme yra matmuo kiek toli yra musu koeficiento ivercio standartinis nuokrypis  nuo 0.
+
+**Pr(>|t|)**: tai tikimybe stebint bet kokia reiksme lygia ar didesne nei |t|.
+
+**Residual standard error**: yra tiesines regresijos kokybes matmuo. Teoriskai, kiekviena tiesine regresija turi error termina E. Neimanoma visiskai tiksliai prognozuoti.
+
+**Multiple R-squared, Adjusted R-squared**: determinacijos koeficientas; R kvadratu statistika nurodo kaip modelis priema esamus duomenis. Visalaika tarp 0 ir 1. Musu atveju R kvadratu yra 0.9674 arba 97% pakitimas, rastas regresoriuje(Employed) gali but paaiskinamas prognozuojanciojo kintamojo(GNP).
+
+**F-statistics**: geras indikatorius, nusakantis ar yra koks nors santykis tarp tu dvieju musu kintamuju. Kuo toliau F-statistika yra nuo 1, tuo geriau.
+
+*2.Padarykite modelio prognozes taskuose $62, 65, 68$.*
+```{r}
+a <- c(62, 65, 68)                          #norimu prognozuoti reiksmiu vektorius
+z = predict(model, newdata=data.frame(x=a)) #prognozuojamos reiksmes
+z                                           #isvedamos prognozuojamos reiksmes
+```
+
+*3.Isbrezkite kintamuju sklaidos diagrama kartu su tiesines regresijos tiese ir naujomis prognozemis. Grafika pateikite su pilna legena, kurioje butu nurodyti visi zymejimai.*
 
 ```{r}
-
-
+plot(x,y, xlab="Employed", ylab="GNP")             #grafikas
+abline(model, col="red")                           #tiesines regresijos tiese
+points(a, z, col="purple", pch=17)                 #prognozuojamos reiksmes
+legend(x="topleft", legend = c("Tiesines regresijos tiese", "Prognozuotos reiksmes", "Esamos reiksmes"), col = c("red", "purple", "black"), lty = c(1, NA, NA), pch = c(NA, 17, 1), merge = FALSE, cex = 1)#legenda
 ```
+
+Source: 
+[link](https://www.r-bloggers.com/simple-linear-regression-2/) 
+[link](http://www.statmethods.net/stats/regression.html)
+[link](http://www2.kenyon.edu/Depts/Math/hartlaub/Math305%20Fall2011/R.htm)

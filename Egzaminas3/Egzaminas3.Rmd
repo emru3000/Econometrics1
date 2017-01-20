@@ -1,0 +1,101 @@
+---
+title: "Egzaminas3"
+output: html_document
+author: "Emilija Rudytė"
+date: "2017-01-20"
+---
+
+##3 užduotis:
+
+Faile 'data_a.csv' yra pateikti duomenys reikalingi tiesinės regresijos tyrimui. Duomenų masyvo aprašymas pateiktas minėto failo pradžioje.
+
+1.Duomenų apžvalga ir paruošimas. Šioje dalyje jums reikia susipažinti su duomenimis ir paruošti duomenis tolimesnei analizei.
+
+a) Nuskaitykite duomenų masyvą. Jeigu įmanoma, nekoreguokite originalaus failo.
+
+b) Paruoškite duomenis naudojimui. Jūs turite užtikrinti, kad:
+
+Neliko įrašų su trūkstamomis reikšmėmis - jeigu šalinote įrašus, tai būtinai raportuokite kiek įrašų pašalinta ir kiek liko.
+
+Duomenų masyve nėra kažkokių klaidų (pvz. negalimos reikšmės, neteisingas duomenų tipas, t.t.). Patartina patikrinti visų duomenų tipus, nes kartais nuskaitymo procedūra suinterpretuoja duoenis ne taip kaip tikimasi.
+
+c) Pateikite trumpą kintamųjų apžvalgą. Naudokite tik tuos duomenis (ir kintamuosius), kuriuos planuojate taikyti tyrimui, t.y. jei reikėjo ką nors modifikuoti, tai senųjų reikšmių naudoti nebereikia. Šiai apžvalgai užtenka informacijos, kurią pateikia funkcijos plot, summary ir cor.
+
+d) Duomenų masyvą suskaidykite į du atskirus ir nesikertančius masyvus. Didesnį masyvą turi sudaryti apie 80 proc. turimų stebėjimų. Šį masyvą vadinsime trainSet. Mažesnį masyvą turi sudaryti likę įrašai. Šį masyvą vadinsime testSet. Duomenų suskaidymas turi būti atsitiktinis. Gali būti naudingos šios funkcijos:sample, setdiff, %in%.
+
+2.Tiesinio modelio sudarymas. Modelio sudarymui naudokite trainSet masyvą.
+
+a) Įvertinkite tiesinį modelių, kuriame prognozuojamas kintamasis būtų kaina. Ji turi tiesiškai priklausyti nuo kitų kintamųjų.
+
+b) Ar visi įtraukti kintamieji daro reikšmingą įtaką prognozei? Jei ne, koreguokite modelį, kad visi kintamieji darytų reikšmingą įtaką. Šį įvertintą modelį žymėsime fit. Užrašykite šio modelio matematinę lygtį.
+
+c) Patikrinkite ar modelio paklaidas galime laikyti normaliomis.
+
+3.Modelių palyginimas ir prognozė.
+
+a) Suskaičiuokite modelio fit1 RMSE (Root Mean Squere Error), kuris apibrėžiamas taip $$RMSE = \sqrt{\frac{1}{n} \sum_{i=1}^n \varepsilon_t^2}.$$
+
+RMSE suskaičiuokite abiem duomenų masyvams trainSet ir testSet. Rezultatus sudėkite į lentelę. Palyginkite rezultatus ir padarykite išvadas.
+
+b) Išbrėžkite sklaidos diagramą, kurioje $x$ ašyje būtų fit1 modelio testSet prognozė, o $y$ ašyje faktinės testSet kainų reikšmės. Ant šios sklaidos diagramos išbrėžkite dvi linijas, kurios žymėtų prognozės pasikliautinus intervalus (pasikliovimo lygmuo 90 proc.).
+
+c) Kiek procentų prognozuotų reikšmių nepateko į pasikliautinus intervalus?
+
+*Nuskaitome duomenų failą, praleidžiame septynias eilutes, kurios yra tik aprašymas toliau esančių duomenų:*
+```{r}
+data <- read.csv("C:/Users/emili/Desktop/mydata.csv", skip = 7, sep = ";")
+```
+
+*Patikriname kokios klasės yra elementai:*
+```{r}
+for(i in 1:ncol(data)){
+    class(data[ ,i])
+  }
+sapply(data, class)
+```
+
+*Patikriname ar nėra NA reikšmių:*
+```{r}
+for(i in 1:ncol(data)){
+  is.na(data[3,])
+}
+sapply(data, is.na)
+
+data1 <- data[ -c(7,13,62,105,108,209), ]
+#panaikiname eilutes, turinčias MISSING reikšmes
+```
+
+*Aptarkime informaciją su funkcijom summary ir plot:*
+```{r}
+summary(data1)
+plot(data1)
+data1[,3] <- as.numeric(as.character(data1[,3]))
+data1[,1] <- as.numeric(as.character(data1[,1]))
+```
+Duota informacija mums sako, kad ridos vidurkis yra 464410, kuris yra labai arti medianos. Maksimali galia 75, kol vidurkis yra 58,9.
+
+*Suskaidykite į du atskirus ir nesikertančius masyvus: trainset ir testset:*
+```{r}
+sub <- sample(nrow(data1), floor(nrow(data1) * 0.8))
+trainset <- data1[sub, ]
+testset <- data1[-sub, ]
+```
+
+*Sudarome tiesinį modelį:*
+```{r}
+y = trainset[,1]
+x = trainset[,3]
+reg1 = lm(y~x)                        
+```
+
+Source:
+
+https://stat.ethz.ch/pipermail/r-help/2005-November/082516.html
+
+http://www.personality-project.org/r/r.commands.html
+
+https://www.quora.com/What-is-the-code-to-convert-a-factor-to-numeric-in-R
+
+http://stackoverflow.com/questions/652136/how-can-i-remove-an-element-from-a-list
+
+

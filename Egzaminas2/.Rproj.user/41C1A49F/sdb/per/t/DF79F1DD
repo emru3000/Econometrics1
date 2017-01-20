@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"Egzaminas\"\noutput: html_document\nauthor: \"Emilija Rudytė\"\ndate: \"2017-01-20\"\n---\n##1 Užduotis:\n\nSuraskite x vidukio ir standartinio nuokrypio įverčius.\n\nRaskite x išskirtis. Šioje užduotyje, išskirtimis laikome reikšmes, kurios nepakliūna į intervalą\n\n[X¯−3sd^;X¯+3sd^].\n\nČia X¯X¯ ir sd^sd^ atitinkamai žymi vidukio ir standartinio nuokrypio įverčius. Atsakymui pateikite ir reikšmes, ir atitinkamus reikšmių indeksus.\n\nPašalinkite rastas išskirtis iš x vektorius ir nubrėžkite atnaujinto x histogramą.\n\n*Sugeneruokime $x$ su pateiktu R kodu:*\n```{r}\nset.seed(1234567890)\nx <- rnorm(5000)\n```\n\n*Ieškome $x$ vidurkio ir standartinio nuokrypio įverčius:*\n```{r}\nmean(x)   #vidurkis\nsd(x)     #standartinis nuokrypis\n```\n\n*Rasime išskirtis, reikšmes, kurios nepakliūa į intervalą $[X¯−3sd^];X¯+3sd^]$:*\n```{r}\nm <- mean(x)   #pasižymime vidurkį m\ns <-sd(x)      #pasižymime standartinį nuokrypį s\n\ni <- which((x < m - 3*s) | (x > m + 3*s))   #su funkcija which atrenkam išskirtis\ni                                           \nats <- x[i]                                 #pasižymime rastas reikšmes ats\nnames(ats) = i                              #pavadinimai priskiriami indeksams\n```\n\n*Pa6aliname rastas išskirtis iš vektoriaus x ir išbrėžiame histogramą:*\n```{r}\nnewi <- x[-i]                                               #rastas išskirtis panaikiname iš vektoriaus x \nhist(newi, main = \"Histograma\",  xlab=\"x\", ylab = \"Dažnis\") #išbraižome histogramą\n```\n\n\n\n\n\n\n\n\n",
+    "created" : 1484900146112.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1520076894",
+    "id" : "DF79F1DD",
+    "lastKnownWriteTime" : 1484898921,
+    "last_content_update" : 1484898921,
+    "path" : "C:/Users/emili/Desktop/Egzaminas/Econometrics1/Egzaminas/Egzaminas.Rmd",
+    "project_path" : null,
+    "properties" : {
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

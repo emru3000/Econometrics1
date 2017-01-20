@@ -1,0 +1,58 @@
+---
+title: "Egzaminas"
+output: html_document
+author: "Emilija Rudytė"
+date: "2017-01-20"
+---
+##1 Užduotis:
+
+Suraskite x vidukio ir standartinio nuokrypio įverčius.
+
+Raskite x išskirtis. Šioje užduotyje, išskirtimis laikome reikšmes, kurios nepakliūna į intervalą
+
+[X¯−3sd^;X¯+3sd^].
+
+Čia X¯X¯ ir sd^sd^ atitinkamai žymi vidukio ir standartinio nuokrypio įverčius. Atsakymui pateikite ir reikšmes, ir atitinkamus reikšmių indeksus.
+
+Pašalinkite rastas išskirtis iš x vektorius ir nubrėžkite atnaujinto x histogramą.
+
+*Sugeneruokime $x$ su pateiktu R kodu:*
+```{r}
+set.seed(1234567890)
+x <- rnorm(5000)
+```
+
+*Ieškome $x$ vidurkio ir standartinio nuokrypio įverčius:*
+```{r}
+mean(x)   #vidurkis
+sd(x)     #standartinis nuokrypis
+```
+
+*Rasime išskirtis, reikšmes, kurios nepakliūa į intervalą $[X¯−3sd^];X¯+3sd^]$:*
+```{r}
+m <- mean(x)   #pasižymime vidurkį m
+s <-sd(x)      #pasižymime standartinį nuokrypį s
+
+i <- which((x < m - 3*s) | (x > m + 3*s))   #su funkcija which atrenkam išskirtis
+i                                           
+ats <- x[i]                                 #pasižymime rastas reikšmes ats
+names(ats) = i                              #pavadinimai priskiriami indeksams
+```
+
+*Pa6aliname rastas išskirtis iš vektoriaus x ir išbrėžiame histogramą:*
+```{r}
+newi <- x[-i]                                               #rastas išskirtis panaikiname iš vektoriaus x 
+hist(newi, main = "Histograma",  xlab="x", ylab = "Dažnis") #išbraižome histogramą
+```
+
+Sources:
+
+http://www.statmethods.net/graphs/density.html
+
+
+
+
+
+
+
+
